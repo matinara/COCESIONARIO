@@ -1,0 +1,16 @@
+public List listarModelo(){
+        List<Modelo> list_modelos = new ArrayList();
+        String query =  "SELECT mo.*, ma.marca, mo.modelo FROM modelo as mo inner join marca as ma on ma.idmarca = mo.idmarca ORDER BY marca ASC";
+        
+        try {
+            con = cn.conectar();
+            pst = con.prepareStatement(query);
+            rs = pst.executeQuery();
+            while(rs.next()){
+                Modelo modelo = new Modelo();
+                modelo.setIdModelo(rs.getInt("idmodelo"));
+                modelo.setModelo(rs.getString("modelo"));
+                modelo.setIdMarca(rs.getInt("idmarca"));
+                modelo.setMarca(rs.getString("marca"));
+                list_modelos.add(modelo);
+            }
